@@ -26,12 +26,24 @@ export default function Dashboard() {
 
   return (
     <div className="p-6 max-w-xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Bienvenido {user?.name || user?.email}</h1>
+      <h1 className="text-2xl font-bold">
+        Bienvenido {user?.name || user?.email}
+      </h1>
 
       <div className="bg-gray-100 p-4 rounded shadow space-y-2 text-black">
-        <p><strong>Email:</strong> {user?.email}</p>
-        {user?.name && <p><strong>Nombre:</strong> {user.name}</p>}
-        {/* Puedes agregar más datos si los traes del token o de la BBDD */}
+        <p>
+          <strong>Email:</strong> {user?.email}
+        </p>
+        {user?.name && (
+          <p>
+            <strong>Nombre:</strong> {user.name}
+          </p>
+        )}
+        {user?.id && (
+          <p>
+            <strong>ID:</strong> {user.id}
+          </p>
+        )}
       </div>
 
       <div className="flex gap-3">
