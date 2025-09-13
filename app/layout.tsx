@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SessionWrapper } from "./providers/SessionWrapper"; // 👈 Importa tu wrapper
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,15 +20,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        {/* ⚠️ Client Component envuelve a todos los hijos */}
+        <SessionWrapper>{children}</SessionWrapper>
       </body>
     </html>
   );
