@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function QuestionsPage() {
   const [questions, setQuestions] = useState([]);
@@ -8,6 +9,7 @@ export default function QuestionsPage() {
   const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     const t = localStorage.getItem("token");
@@ -39,6 +41,19 @@ export default function QuestionsPage() {
     if (res.ok) setMessage("Respuestas guardadas!");
     else setMessage(`Error: ${data.error}`);
   };
+   if (!session) {
+      return (
+        <div className="p-6 max-w-md mx-auto text-center">
+          <p className="mb-4">No tienes acceso, debes iniciar sesión.</p>
+          <button
+            onClick={() => signIn()}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+          >
+            Ingresar
+          </button>
+        </div>
+      );
+    }
 
   return (
     <div className="p-6 max-w-lg mx-auto">
